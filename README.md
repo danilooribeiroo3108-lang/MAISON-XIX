@@ -71,7 +71,16 @@ de verdade. Depois, se quiser, dá pra apontar um domínio próprio
 - **Estoque não é controlado automaticamente** — o site sempre permite
   comprar qualquer quantidade. Se quiser controlar estoque, também dá
   pra adicionar depois (precisa de um banco de dados simples).
-- Você recebe o **pedido dentro do próprio painel do Mercado Pago**
-  (aba "Vendas"/"Cobranças"). Se quiser também receber um e-mail ou
-  notificação a cada venda, dá pra configurar um webhook — posso montar
-  isso também quando quiser.
+- Cada pedido chega completo no **Netlify → Forms → pedidos** e por
+  **e-mail** (configure em Forms → Form notifications). O pagamento
+  confirmado aparece no **Mercado Pago**, com o mesmo nº de pedido
+  (ex: MX260930-AB12) como referência externa.
+- Preço, frete e total são calculados no servidor
+  (`netlify/functions/create-preference.js`). Ao mudar o preço, altere
+  lá (`PRECOS`) e no `index.html` (`const PRECO`).
+
+## Como adicionar ou trocar um perfume
+
+1. Coloque a arte completa em `img/arte/NOME.jpg` e o recorte do frasco em `img/card/NOME.jpg`.
+2. No `index.html`, acrescente o perfume na lista `PERFUMES` (mesmo formato dos outros).
+3. Em `netlify/functions/create-preference.js`, acrescente a mesma linha em `CATALOGO`.
